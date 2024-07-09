@@ -1,5 +1,13 @@
 :root {
-  --color: #423c3c;
+  --color: #2b3674;
+  --margin: 10px;
+  --fontSize: 15px;
+}
+@font-face {
+  font-family: "CustomFont";
+  src: url("./assets/fonts/SourceSerifPro-Regular.otf") format("opentype");
+  /* font-weight: normal;
+  font-style: normal; */
 }
 * {
   padding: 0;
@@ -7,19 +15,25 @@
   margin: 0;
   outline: 0;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: var(--fontSize);
   color: var(--color);
+  font-family: "CustomFont", sans-serif;
 }
+
 ul {
   list-style: none;
 }
 .darkColor {
   color: var(--color);
-  font-weight: 500;
+  font-weight: 600;
 }
-
+.textTitle {
+  color: var(--color);
+  font-size: 1.25rem;;
+  font-weight: 650;
+}
 body {
-  background-color: #c6e3e5;
+  background-color: rgba(163, 174, 208, 0.5);
 }
 
 @media (max-width: 739px) {

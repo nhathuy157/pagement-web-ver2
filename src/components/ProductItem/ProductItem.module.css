@@ -3,54 +3,64 @@
   justify-content: space-between;
   align-items: center;
   padding-right: 30px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 4px;
-  box-shadow: 0 8px 13.4px rgba(0, 0, 0, 25%);
-  border-radius: 12px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.25rem;
+  /* box-shadow: 00.5rem 13.4px rgba(0, 0, 0, 25%); */
+  border-radius: 0.75rem;
+}
+.container * {
+  font-weight: 400;
 }
 .inf {
   align-items: center;
   display: flex;
   gap: 20px;
 }
-.inf div {
+.inf_content {
   /* align-items: center; */
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-self: self-start;
+  gap: 0.5rem;
+  padding-top: 0.625rem;
+}
+.box_img {
+  border: 0.625rem #dfe3ef solid;
+  border-radius: 0.313rem;
+  box-shadow: 0 0.5rem 13.4px rgba(0, 0, 0, 25%);
 }
 .inf img {
-  width: 100px;
-  height: 85px;
+  width: 4.375rem;
+  height: 4.375rem;
 }
 .btn {
   height: fit-content;
   /* height: 14.4px; */
-  padding: 8px 20px !important;
-  color: #555555;
-  font-size: 12.6px;
-  font-weight: 700;
+  padding: 0.5rem 1.25rem !important;
+  /* color: #555555; */
+  font-size: 0.788rem;
+  font-weight: 400;
   word-break: keep-all;
 }
 
 .rectangleDiv {
-  width: 100px;
-  height: 85px;
-  border-radius: 5px;
+  width: 6.25rem;
+  height: 5.313rem;
+  border-radius: 0.313rem;
   background-color: #d9d9d9;
-  }
-  
+}
+
 @media (max-width: 739px) {
   .btn {
     display: none;
   }
   .inf div {
-    gap: 4px;
+    gap: 0.25rem;
   }
   .inf img {
-    width: 120px;
-    height: 105px;
+    width: 7.5rem;
+    height: 6.563rem;
   }
 }
 @media (min-width: 740px) and (max-width: 1023px) {
