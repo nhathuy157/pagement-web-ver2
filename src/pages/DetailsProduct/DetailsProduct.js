@@ -20,7 +20,7 @@ export default function DetailsProduct() {
         async function fetchOrder() {
             try {
                 feting = true;
-                const data = window.data || await getOrder(orderHash).then(r=>r.data);
+                const data = window.data || await getOrder(orderHash).then(r => r.data);
                 window.data = data;
                 setDetailsInfo(data);
 
@@ -68,9 +68,9 @@ export default function DetailsProduct() {
 
     return (
         <div className={classes.box_padding}>
-            <div className={`${classes.container}`}>
+            <div className={`grid wide ${classes.container}`}>
                 <div className={classes.head}>
-                    <button onClick={ ()=> {window.history.back()} } className={classes.backBtn}>
+                    <button onClick={() => { window.history.back() }} className={classes.backBtn}>
                         <img src={backBtn} />
                     </button>
                     <h1 className='textTitle'>Chi tiết sản phẩm</h1>

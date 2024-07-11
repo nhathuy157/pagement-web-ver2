@@ -1,8 +1,8 @@
-import logoAoThun247 from '../../assets/img/logoAoThun247.jpg'
+import logoAoThun247 from '../../assets/img/logoAoThun247.png'
 import logoBTP from '../../assets/img/logoBTP.jpg'
 import logoDPBTP from '../../assets/img/logoDPBTP.png'
-import logodongphucTT from '../../assets/img/logodongphucTT.jpg'
-import logoDefault from '../../assets/img/logoAoThun247.jpg' // Sử dụng khi không tìm đc logo
+import logodongphucTT from '../../assets/img/logodongphucTT.png'
+import logoDefault from '../../assets/img/logoAoThun247.png' // Sử dụng khi không tìm đc logo
 import logoVBC from '../../assets/img/VBClogo.png'
 import logoVP from '../../assets/img/VPlogo.jpg'
 
@@ -46,7 +46,7 @@ const dataRef = {
     'default': {
         sologan: 'Đơn giản là đẹp',
         favicon: logoAoThun247,
-        logo: logoAoThun247,
+        logo: logoDefault,
         bank: {
             BANKID: 'VPB',
             BANKNAME: 'VPBank - Ngân hàng TMCP Việt Nam Thịnh Vượng',

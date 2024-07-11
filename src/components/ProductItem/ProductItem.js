@@ -9,7 +9,7 @@ export default function ProductItem(props) {
 
             <div className={classes.inf}>
                 <div className={classes.box_img}>
-                    <img src={props.content.image ||placeholder_image} />
+                    <img src={props.content.image || placeholder_image} />
                     {/* <div className={classes.rectangleDiv} /> */}
                 </div>
                 <div className={classes.inf_content}>

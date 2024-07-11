@@ -1,12 +1,14 @@
 .box_padding {
-  padding: var(--margin) 1.25rem;
-  height: 100vh;
+  /* padding: var(--margin) 1.25rem; */
+  padding-top: var(--margin);
+  /* height: 100vh; */
 }
 .container {
   background-color: #fff;
   padding: 0.875rem 2.188rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.75rem 2.088rem rgba(0, 0, 0, 25%);
+  /* margin-top: var(--margin); */
   /* height: 90%; */
 }
 .listInfo {

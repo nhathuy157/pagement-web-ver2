@@ -50,7 +50,7 @@ export default function PaymentPage() {
         try {
             // Sao chép văn bản vào clipboard
             const successful = document.execCommand('copy');
-            if(!successful) throw new Error("Trình duyệt không hỗ trợ copy");
+            if (!successful) throw new Error("Trình duyệt không hỗ trợ copy");
             // const msg = successful ? 'successful' : 'unsuccessful';
             // console.log('Đã sao chép thành công  ' + msg);
             // showSuccessAlert('Đã sao chép thành công: ' + text, 'success');
@@ -65,6 +65,20 @@ export default function PaymentPage() {
         document.body.removeChild(textarea);
     }
 
+    function openZalo(phone) {
+        //var zaloLink = "https://zalo.me/" + phone;
+        
+       var zaloLink = "zalo://conversation?phone=" + phone;
+        var zaloWindow = window.open(zaloLink, "_blank");
+        if (zaloWindow) {
+            zaloWindow.focus();
+            console.log("success");
+        } else {
+            // error
+            console.log("ngốc");
+        }
+     }
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const orderHash = queryParams.get('order_hash');
@@ -73,9 +87,9 @@ export default function PaymentPage() {
     const ref = brandName || queryParams.get('ref');
     const brand = (ref && Object.keys(dataRef).includes(ref)) ? dataRef[ref] : dataRef['default'];
     const BankInfo = brand.bank || dataRef.default.bank;
-    if(brand.favicon) document.querySelector('link[rel="icon"]').href = brand.favicon;// sửa favicon
+    if (brand.favicon) document.querySelector('link[rel="icon"]').href = brand.favicon;// sửa favicon
 
-    if(brand.sologan) document.querySelector('meta[name="description"]').content = brand.sologan;
+    if (brand.sologan) document.querySelector('meta[name="description"]').content = brand.sologan;
 
     // alert(document.URLSearchParams);
 
@@ -87,7 +101,7 @@ export default function PaymentPage() {
         async function fetchOrder() {
             try {
                 feting = true;
-                const data = window.data || await getOrder(orderHash).then(r=>r.data);
+                const data = window.data || await getOrder(orderHash).then(r => r.data);
                 window.data = data;
                 setDetailsInfo(data);
 
@@ -121,7 +135,7 @@ export default function PaymentPage() {
             if (['đã gửi', 'hoàn thành'].includes(detailsInfo?.status.text.toLocaleLowerCase())) { setIsStop(true); return }; // Nếu đã gửi thì không update
             setIsChecking(true);
             try {
-                while(document.hidden) await new Promise(r => setTimeout(r, 500)); // Chờ người dùng bật lại tab, nếu có thay đổi thì reload luôn.
+                while (document.hidden) await new Promise(r => setTimeout(r, 500)); // Chờ người dùng bật lại tab, nếu có thay đổi thì reload luôn.
                 const data = await getOrder(orderHash);
                 // debugger;
                 if (detailsInfo && data.success && JSON.stringify(data.data) !== JSON.stringify(detailsInfo)) { // Nếu data có thay đổi
@@ -129,7 +143,7 @@ export default function PaymentPage() {
                     if (data.data.totalPay !== detailsInfo.totalPay && data.data.totalPay == 0) {
                         setIsStop(true);
                         const paymentAmount = detailsInfo.totalPay - data.data.totalPay; // tiền trước trừ tiền sau
-                        showSuccessAlert("Thanh toán thành công số tiền " + format(paymentAmount),'success', (result) => {
+                        showSuccessAlert("Thanh toán thành công số tiền " + format(paymentAmount), 'success', (result) => {
                             if (result.isConfirmed) {
                                 window.location.reload(); // reload lại trang
                             }
@@ -212,9 +226,9 @@ export default function PaymentPage() {
                                 Nhân viên
                             </h1>
                             <InfoITem title="Nhân viên" content={employeeName} />
-                            <InfoITem title="Số điện thoại" content={detailsInfo.customer.phone} />
+                            <InfoITem title="Số điện thoại" content={customer.assign.phone} /> 
                             <div className={classes.contact_img}>
-                                <img src={zalo_icon} />
+                                <img onClick={() => openZalo(customer.assign.phone)} src={zalo_icon} />
                                 <img src={phone_icon} />
                                 <img src={fb_icon} />
                             </div>
@@ -242,6 +256,9 @@ export default function PaymentPage() {
                             detailsInfo.products.map((e, i) => (
                                 <div key={i}>
                                     <ProductItem index={i} content={e} />
+                                    <ProductItem index={i} content={e} />
+                                    <ProductItem index={i} content={e} />
+                                    <ProductItem index={i} content={e} />
                                 </div>
                             ))
 
@@ -264,7 +281,7 @@ export default function PaymentPage() {
                                 </Button>
                             </a> */}
                         </div>
-                        <div className='c-10 l-6'>
+                        <div className='c-12 l-6'>
                             <InfoITem darkColor={true} title="Tổng tiền" content={
                                 <>
                                     {totalAmountFormat}
@@ -285,7 +302,7 @@ export default function PaymentPage() {
 
                 <div className={`${classes.qrpay}`}>
                     <ReactCardFlip flipDirection='horizontal' isFlipped={statePayment}>
-                        <div id='QR' className={`${classes.container}`}>
+                        <div id='QR' className={`${classes.container} ${classes.height_left}`}>
                             <div className={classes.Payhead}>
                                 {/* <img src={lamp} /> */}
                                 <p className='textTitle'>
@@ -327,7 +344,7 @@ export default function PaymentPage() {
                                                 </p>
                                             </div>
                                             <div className={`col l-5 c-5 ${classes.box_btn_pay}`}>
-                                                <Button onClick={ function (event){ copyTextToClipboard(BankInfo.ACCOUNT_NO, event.currentTarget)} } className={classes.btn_pay}>Sao chép</Button>
+                                                <Button onClick={function (event) { copyTextToClipboard(BankInfo.ACCOUNT_NO, event.currentTarget) }} className={classes.btn_pay}>Sao chép</Button>
                                             </div>
                                         </div>
                                         <div className={`row`}>
@@ -340,7 +357,7 @@ export default function PaymentPage() {
                                                 </p>
                                             </div>
                                             <div className={`col l-5 c-5 ${classes.box_btn_pay}`}>
-                                                <Button onClick={ function (event){ copyTextToClipboard(totalPayFormat, event.currentTarget)} } className={classes.btn_pay}>Sao chép</Button>
+                                                <Button onClick={function (event) { copyTextToClipboard(totalPayFormat, event.currentTarget) }} className={classes.btn_pay}>Sao chép</Button>
                                             </div>
                                         </div>
                                         <div className={`row`}>
@@ -353,7 +370,7 @@ export default function PaymentPage() {
                                                 </p>
                                             </div>
                                             <div className={`col l-5 c-5 ${classes.box_btn_pay}`}>
-                                                <Button onClick={ function (event){ copyTextToClipboard(detailsInfo.code, event.currentTarget)} } className={classes.btn_pay}>Sao chép</Button>
+                                                <Button onClick={function (event) { copyTextToClipboard(detailsInfo.code, event.currentTarget) }} className={classes.btn_pay}>Sao chép</Button>
                                             </div>
                                         </div>
                                         <Button onClick={SetPayments} className={` ${classes.btn_QR}`}>
@@ -364,7 +381,7 @@ export default function PaymentPage() {
                             </div>
                         </div>
 
-                        <div className={`${classes.container} ${classes.paymentMT}`}>
+                        <div className={`${classes.container} ${classes.paymentMT} ${classes.height_left}`}>
                             <div className={classes.box_flex}>
                                 <img src={iconCheck} />
                                 <p>
@@ -373,7 +390,7 @@ export default function PaymentPage() {
                             </div>
                             <div className={classes.box_flex}>
                                 <p>
-                                    Nếu có bất kỳ vấn đề gì với đơn hàng, xin vui lòng liên hệ ngay qua số điện thoại/Zalo: 0915 484 515 để được hỗ trợ nhanh chóng.
+                                    Nếu có bất kỳ vấn đề gì với đơn hàng, xin vui lòng liên hệ ngay qua số điện thoại/Zalo: {customer.assign.phone} để được hỗ trợ nhanh chóng.
                                 </p>
                                 <img src={iconSupport} />
                             </div>
@@ -383,7 +400,7 @@ export default function PaymentPage() {
                                     Vui lòng thanh toán số tiền trong đơn hàng để chúng tôi có thể xử lý đơn hàng của Quý khách ngay lập tức.
                                 </p>
                             </div>
-                            <Button onClick={SetPayments}>
+                            <Button onClick={SetPayments} className={classes.btn_MT}>
                                 Thanh toán
                             </Button>
                         </div>
