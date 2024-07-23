@@ -7,6 +7,10 @@
   /* min-height: 100vh; */
   height: auto;
 }
+.tks{
+  padding: 0 !important;
+  overflow: hidden;
+}
 .maxHeight {
   height: 88vh;
 }
@@ -170,6 +174,10 @@
   width: 50%;
   /* margin-bottom: 1.25rem; */
 }
+.imgTks{
+  height: max-content;
+  width: 100%;
+}
 .pay_container {
   display: flex;
   flex-direction: column;
@@ -180,9 +188,12 @@
   gap: 0.25rem;
 }
 .height_left {
-  height: 500px;
+  height: 523px;
   /* padding: 1rem 2.5rem; */
+ 
+  
 }
+
 .paymentMT {
   padding: 1rem 2.5rem;
   display: flex;
@@ -318,7 +329,7 @@
   }
   .stt {
     flex-direction: column-reverse;
-    /* align-items: end; */
+    align-items: normal;
     gap: 0.625rem;
     width: auto;
     margin-left: 0;
@@ -336,6 +347,9 @@
     padding: 1.25rem 1.25rem;
     border-radius: 0.25rem;
   }
+  .height_left {
+    height: auto;
+  }
   .listInfo {
     margin-top: 0px;
     /* padding: 0 0.625rem; */
@@ -343,6 +357,7 @@
   }
   .box_btn {
     align-items: start;
+    align-self: center;
   }
   .box_btn p {
     padding: 0.5rem 0;

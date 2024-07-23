@@ -5,9 +5,15 @@ import logodongphucTT from '../../assets/img/logodongphucTT.png'
 import logoDefault from '../../assets/img/logoAoThun247.png' // Sử dụng khi không tìm đc logo
 import logoVBC from '../../assets/img/VBClogo.png'
 import logoVP from '../../assets/img/VPlogo.jpg'
+import imgTTtks from '../../assets/img/TTtks.png'
+import imgBTPtks from '../../assets/img/BTPtks.png'
+import imgAothun247tks from '../../assets/img/Aothun247tks.png'
+
 
 const dataRef = {
     'aothun247': {
+        url : 'https://aothun247.vn/',
+        imgTks :imgAothun247tks ,
         sologan: 'Đơn giản là đẹp',
         favicon: logoAoThun247,
         logo: logoAoThun247,
@@ -20,6 +26,8 @@ const dataRef = {
         }
     },
     'dongphucbtp': {
+        url : 'https://dongphucbtp.vn/',
+        imgTks :imgBTPtks ,
         sologan: 'Giải pháp đồng phục doanh nghiệp',
         favicon: logoDPBTP,
         logo: logoDPBTP,
@@ -32,6 +40,8 @@ const dataRef = {
         }
     },
     'thientrang': {
+        url : 'https://thientrang.vn/',
+        imgTks :imgTTtks ,
         sologan: 'Giải pháp đồng phục chuyên nghiệp',
         favicon: logodongphucTT,
         logo: logodongphucTT,
@@ -44,6 +54,8 @@ const dataRef = {
         }
     },
     'default': {
+        url : 'https://thientrang.vn/',
+        imgTks :imgAothun247tks,
         sologan: 'Đơn giản là đẹp',
         favicon: logoAoThun247,
         logo: logoDefault,

@@ -16,6 +16,7 @@
   align-items: center;
   display: flex;
   gap: 20px;
+  width: 80%;
 }
 .inf_content {
   /* align-items: center; */

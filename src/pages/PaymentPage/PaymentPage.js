@@ -17,10 +17,24 @@ import fb_icon from '../../assets/img/Facebook.png'
 import iconCheck from '../../assets/img/iconscheck.png'
 import iconSupport from '../../assets/img/iconsSupport.png'
 import iconPayment from '../../assets/img/iconsPayment.png'
+import iconProduct from '../../assets/img/iconsProduct.png'
+import imgTTtks from '../../assets/img/TTtks.png'
 import ReactCardFlip from 'react-card-flip';
 
 export default function PaymentPage() {
     const [statePayment, setsStatePayment] = useState(true);
+    const [stateTks, setsStateTks] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setsStateTks(!stateTks);
+        }, 3000);
+
+        // Dọn dẹp bộ đếm thời gian khi component bị hủy hoặc khi count thay đổi
+        return () => clearTimeout(timer);
+    }, [stateTks]); // Dependency array
+
+
     function SetPayments() {
         setsStatePayment(!statePayment)
     }
@@ -67,8 +81,8 @@ export default function PaymentPage() {
 
     function openZalo(phone) {
         //var zaloLink = "https://zalo.me/" + phone;
-        
-       var zaloLink = "zalo://conversation?phone=" + phone;
+
+        var zaloLink = "zalo://conversation?phone=" + phone;
         var zaloWindow = window.open(zaloLink, "_blank");
         if (zaloWindow) {
             zaloWindow.focus();
@@ -77,7 +91,7 @@ export default function PaymentPage() {
             // error
             console.log("ngốc");
         }
-     }
+    }
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -87,6 +101,8 @@ export default function PaymentPage() {
     const ref = brandName || queryParams.get('ref');
     const brand = (ref && Object.keys(dataRef).includes(ref)) ? dataRef[ref] : dataRef['default'];
     const BankInfo = brand.bank || dataRef.default.bank;
+    const imgTks = brand.imgTks || dataRef.default.imgTks;
+    const urlMain = brand.url || dataRef.default.url;
     if (brand.favicon) document.querySelector('link[rel="icon"]').href = brand.favicon;// sửa favicon
 
     if (brand.sologan) document.querySelector('meta[name="description"]').content = brand.sologan;
@@ -168,14 +184,14 @@ export default function PaymentPage() {
         return () => clearInterval(intervalId);
     }, [isChecking]); //Chạy lại effect nếu isChecking thay đổi
 
-    if (!orderHash) return "order_hash không hợp lệ";
+    if (!orderHash) window.location.href = `${urlMain}`;
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        window.location.href = `${urlMain}`;
     }
 
     const {
@@ -226,7 +242,7 @@ export default function PaymentPage() {
                                 Nhân viên
                             </h1>
                             <InfoITem title="Nhân viên" content={employeeName} />
-                            <InfoITem title="Số điện thoại" content={customer.assign.phone} /> 
+                            <InfoITem title="Số điện thoại" content={customer.assign.phone} />
                             <div className={classes.contact_img}>
                                 <img onClick={() => openZalo(customer.assign.phone)} src={zalo_icon} />
                                 <img src={phone_icon} />
@@ -255,9 +271,6 @@ export default function PaymentPage() {
                         {
                             detailsInfo.products.map((e, i) => (
                                 <div key={i}>
-                                    <ProductItem index={i} content={e} />
-                                    <ProductItem index={i} content={e} />
-                                    <ProductItem index={i} content={e} />
                                     <ProductItem index={i} content={e} />
                                 </div>
                             ))
@@ -298,9 +311,11 @@ export default function PaymentPage() {
                 </div>
             </div>
 
-            {totalPay > 0 && ( // Đã thanh toán thì ẩn QR đi
 
-                <div className={`${classes.qrpay}`}>
+
+            <div className={`${classes.qrpay}`}>
+                {totalPay > 0 ? (
+
                     <ReactCardFlip flipDirection='horizontal' isFlipped={statePayment}>
                         <div id='QR' className={`${classes.container} ${classes.height_left}`}>
                             <div className={classes.Payhead}>
@@ -405,28 +420,63 @@ export default function PaymentPage() {
                             </Button>
                         </div>
                     </ReactCardFlip>
+                ) : (
+                    <ReactCardFlip flipDirection='horizontal' isFlipped={stateTks}>
+                        <div id='QR' className={`${classes.container} ${classes.height_left} ${classes.tks}`}>
+                            <div className={classes.Payhead}>
+                                <img src={imgTks} className={classes.imgTks} />
+                            </div>
 
 
-                    <div className={`${classes.container} ${classes.transport}`}>
-                        <p className='darkColor'>Vận chuyển và nhận hàng</p>
-                        <p>
-                            Mã vận chuyển : {ships.track || "Chưa có thông tin"}
-                        </p>
-                        <p>
-                            Đơn vị vận chuyển : {ships.delivery?.text || "Chưa có thông tin"}
-                        </p>
-                        <p>
-                            Dự kiến nhận hàng : {new Date(detailsInfo.deadline).toLocaleDateString('en-DE')}
-                        </p>
-                        <p>
-                            Phí vận chuyển : {ships.freeShip ? "Miễn phí" : "Khách hàng thanh toán phí ship"}
-                        </p>
-                    </div>
+                        </div>
+
+                        <div className={`${classes.container} ${classes.paymentMT} ${classes.height_left} `}>
+
+                            <div className={classes.box_flex}>
+                                <img src={iconProduct} />
+                                <p>
+                                    Thời gian sản xuất dự kiến từ 8-10 ngày. Không tính chủ nhật và nghỉ lễ.
+                                </p>
+
+
+                            </div>
+
+                            <div className={classes.box_flex}>
+                                <p>
+                                    Nhận hàng được mở hàng kiểm tra. Đúng hàng, đủ số lượng sản phẩm.
+                                </p>
+                                <img src={iconCheck} />
+                            </div>
+                            <div className={classes.box_flex}>
+                                <img src={iconSupport} />
+                                <p>
+                                    Nếu gặp sự cố trong quá trình kiểm hàng và giao nhận hàng. Mình liên hệ lại qua số điện thoại/ Zalo: {customer.assign.phone} để có thể xử lý kịp thời .
+                                </p>
+                            </div>
+                           
+                        </div>
+                    </ReactCardFlip>
+
+                )}
+
+
+                <div className={`${classes.container} ${classes.transport}`}>
+                    <p className='darkColor'>Vận chuyển và nhận hàng</p>
+                    <p>
+                        Mã vận chuyển : {ships.track || "Chưa có thông tin"}
+                    </p>
+                    <p>
+                        Đơn vị vận chuyển : {ships.delivery?.text || "Chưa có thông tin"}
+                    </p>
+                    <p>
+                        Dự kiến nhận hàng : {new Date(detailsInfo.deadline).toLocaleDateString('en-DE')}
+                    </p>
+                    <p>
+                        Phí vận chuyển : {ships.freeShip ? "Miễn phí" : "Khách hàng thanh toán phí ship"}
+                    </p>
                 </div>
+            </div>
 
-
-
-            )}
         </div>
     )
 }

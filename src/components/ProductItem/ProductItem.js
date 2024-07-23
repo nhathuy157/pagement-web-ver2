@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import placeholder_image from '../../assets/img/no-image-available.png'
 export default function ProductItem(props) {
     return (
-        <li className={`${classes.container}`}>
+        <Link to={'/DetailsProduct' + window.location.search + "&index=" + props.index} className={`${classes.container}`}>
 
             <div className={classes.inf}>
                 <div className={classes.box_img}>
@@ -31,6 +31,6 @@ export default function ProductItem(props) {
                     Xem Thêm
                 </Button>
             </Link>
-        </li>
+        </Link>
     )
 }
